@@ -7,8 +7,8 @@ local url = require("socket.url")
 -- Configuration
 local local_port = 3333 -- Replace with the desired local port
 local teltonika_ip = "192.168.1.1" -- Replace with the actual IP of your Teltonika router
-local username = "username"
-local password = "password:
+local username = "username" -- Replace with the actual username of your SMS Gateway user
+local password = "password" -- Replace with the actual password of your SMS Gateway user
 local recipient_number = "0037000000000" -- Replace with the recipient's phone number
 
 -- Function to send an SMS using the Teltonika router's API
