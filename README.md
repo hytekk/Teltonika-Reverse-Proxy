@@ -10,11 +10,50 @@ This repository contains a Lua script that acts as an HTTP reverse proxy for Tel
 - Customizable destination URL and other parameters
 - Written in Lua
 
+## Supported Commands
+
+The reverse proxy script supports the following commands:
+
+- HTTP GET: Used for sending GET requests from the Teltonika device to the destination URL.
+- HTTP POST: Used for sending POST requests from the remote system to the Teltonika device, which are then converted to GET requests.
+
 ## Usage
 
 1. Configure the Teltonika device to send HTTP POST requests to the reverse proxy script's URL.
 2. Customize the reverse proxy script to define the destination URL and any additional request parameters.
 3. Run the reverse proxy script on the Teltonika device.
+
+## Teltonika GET Command to `sms_send`
+
+The Teltonika device sends an HTTP GET request to the destination URL to trigger the `sms_send` command. The URL format typically looks like this:
+
+```
+http://teltonika-ip/cgi-bin/sms_send?username=user&password=password&number=recipient-number&text=message
+```
+
+Replace `teltonika-ip` with the IP address of your Teltonika device. Adjust the `username`, `password`, `number`, and `text` parameters according to your Teltonika device configuration and the specific SMS details.
+
+## Examples
+
+Here are examples of remote system `curl` commands for sending SMS using POST:
+
+- HTTP POST to trigger SMS:
+  ```bash
+  curl -X POST "http://teltonika-ip:teltonika-port/trigger-sms" -d "recipient=phone-number&message=your-message"
+  ```
+
+- HTTP POST to trigger SMS2:
+  ```bash
+  curl -X POST "http://teltonika-ip:teltonika-port/trigger-sms2" -d "recipient=phone-number&message=your-message2"
+  ```
+
+- HTTP POST to trigger SMS3:
+  ```bash
+  curl -X POST "http://teltonika-ip:teltonika-port/trigger-sms3" -d "recipient=phone-number&message=your-message3"
+  ```
+
+Replace `teltonika-ip` with the IP address of your Teltonika device and `teltonika-port` with the port number where the reverse proxy script is running. Adjust the `recipient` and `message` parameters according to your requirements.
+
 
 ## Setup
 
@@ -29,6 +68,16 @@ This repository contains a Lua script that acts as an HTTP reverse proxy for Tel
    ```bash
    lua reverse_proxy.lua
    ```
+
+## Starting the Lua Script from `rc.local`
+
+To automatically start the reverse proxy script on boot, you can add the following command to the `rc.local` file:
+
+```bash
+lua /path/to/reverse_proxy.lua &
+```
+
+Replace `/path/to/reverse_proxy.lua` with the actual path to the reverse proxy script on your Teltonika device.
 
 ## Contributions
 
